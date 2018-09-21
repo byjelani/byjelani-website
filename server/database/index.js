@@ -4,7 +4,7 @@ const { MONGODB } = require('../config');
 mongoose.connect(MONGODB);
 
 const db = mongoose.connection;
-db.on('error', () => console.error('The connection to database could not be established.'));
+db.on('error', (error) => console.error(error));
 db.once('open', () => console.log('Connection to database established.'));
 
 const userSchema = mongoose.Schema({
@@ -47,12 +47,12 @@ const jCollectionSchema = mongoose.Schema({
   releaseDate: Date,
   description: String,
   // total sales of collection
-  totalSales: number,
+  totalSales: Number,
   images: [String],
   lookBook: {}
 });
 
-const JCollection = mongoose.model('JCollection', JCollection);
+const JCollection = mongoose.model('JCollection', jCollectionSchema);
 
 const orderSchema = mongoose.Schema({
   customerEmail: String,
